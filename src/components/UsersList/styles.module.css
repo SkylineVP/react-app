@@ -1,9 +1,14 @@
 
-.container{
-    display: flex;
-    box-sizing: border-box;
-    flex-direction: row;
-    flex-wrap: wrap;
+.container {
+
     margin: 50px 200px;
     padding: 0 15px;
+}
+
+.wraper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+    width: 100%;
 }

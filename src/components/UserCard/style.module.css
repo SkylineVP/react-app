@@ -1,12 +1,26 @@
 .userCard{
-    width: 500px;
-    height: 50%;
+    font-family: Roboto, sans-serif;
+    width: 50%;
+    height: 100px;
+    box-sizing: border-box;
+    margin: 5px;
     background-color: white;
-   margin: 15px;
-
-
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
 }
-.userCard > img{
-    width: 50px;
-    height: 50px;
+
+.userCard > img {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    object-fit: cover;
 }
+
+.userCard > .userContent {
+    justify-self: center;
+    margin-left: 50px;
+}
+

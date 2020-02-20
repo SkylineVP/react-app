@@ -9,28 +9,35 @@ class UserList extends Component {
         this.state = {
             error: null,
             isFetching: false,
+            limit: 40,
             users: []
         }
     }
 
-    componentDidMount() {
+    loadData = () => {
+        const {limit, users: {length},} = this.state;
+
         this.setState(
             {isFetching: true});
         setTimeout(() => {
-            fetch(process.env.PUBLIC_URL + 'users.json')
+            fetch(`http://localhost:3000/admin/users?limit=${limit}&offset=${length}`)
                 .then(res => res.json())
-                .then(users => {
+                .then(data => {
                     this.setState({
                         isFetching: false,
-                        users: users
-                    })
+                        users: [...this.state.users, ...data]
+                    });
                 })
                 .catch((e) => {
                     this.setState({
                         error: e
                     })
                 });
-        }, 5000);
+        }, 0);
+    };
+
+    componentDidMount() {
+        this.loadData()
     }
 
     render() {
@@ -38,19 +45,22 @@ class UserList extends Component {
         const userCard = users.map((item, index) =>
             <UserCard user={item} key={item.id}/>
         );
-        console.log(userCard);
-        return (
-            <div className={styles.container}>
-                <div className={styles.wraper}>
-                    {
-                        userCard
-                    }
-                    {
-                        isFetching && <Spiner/>
-                    }
-                </div>
 
-            </div>
+        return (
+            <>
+                <div className={styles.container}>
+                    <div className={styles.wraper}>
+                        {
+                            userCard
+                        }
+                        {
+                            isFetching && <Spiner/>
+                        }
+                    </div>
+
+                </div>
+                <button onClick={this.loadData}>Load More</button>
+            </>
         )
     }
 
